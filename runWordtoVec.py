@@ -15,21 +15,11 @@ class Corpus(object):
             yield line.split()
 
 
-def test():
-	fname = open("test.txt", "a")
-	
-	for i in range(100000):
-		fname.write("test"+str(i)+"\n")
-	fname.close()
-		
-
-
-
-#num_features = 300    # Word vector dimensionality                      
-#min_word_count = 40   # Minimum word count                        
-#num_workers = 4       # Number of threads to run in parallel
-#context = 10          # Context window size                                                                                    
-#downsampling = 1e-3   # Downsample setting for frequent words
+#num_features =  Word vector dimensionality                      
+#min_word_count = Minimum word count                        
+#num_workers  = Number of threads to run in parallel
+#context = Context window size                                                                                    
+#downsampling = Downsample setting for frequent words
 
 # sg = 0 (CBOW) sg = 1 Skip-gram
 # hs = 0 Neg sampling hs = 1 hierarchical softmax
@@ -52,13 +42,8 @@ def trainModel(Arch, windowSize, downSampling, numFeatures):
            sample=downSampling, size=numFeatures, min_count = 20, workers=4)
 			
 
-
-	# If you don't plan to train the model any further, calling 
-	# init_sims will make the model much more memory-efficient.
 	model.init_sims(replace=True)
 
-	# It can be helpful to create a meaningful model name and 
-	# save the model for later use. You can load it later using Word2Vec.load()
 	
 	model_name = alg+'_ws'+ str(windowSize) + '_ds'+ str(downSampling) + '_ft' + str(numFeatures)
 	model.save(model_name)
