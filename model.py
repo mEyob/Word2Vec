@@ -13,7 +13,6 @@ class Model(object):
             self.model = gensim.models.Word2Vec.load_word2vec_format(name,binary=True)
         else:
             self.model = gensim.models.word2vec.Word2Vec.load(name)
-        if not google:
             self.train_time = self.model.total_train_time
         
     def eval_nearest(self, target_words):
