@@ -6,7 +6,7 @@ between words and/or documents. The two main language models in this regard are
 *context-counting* and *context-predicting* models.
 
 Context-counting models construct a word co-occurrence matrix from a context window
-in a given corpus. The underlying assumption is that similar words will appear in the same context, and hence their vector representations will be closer to each other. However, the size of raw co-occurrence matrices grows exponentially with the vocabulary. For this and other performance reasons, dimensionality reduction techniques such as \emph{Latent Semantic Indexing} are often used in context-counting models together with \emph{Weighting} techniques \cite{Manning:1999:FSN:311445,ARIS:ARIS1440380105}.
+in a given corpus. The underlying assumption is that similar words will appear in the same context, and hence their vector representations will be closer to each other. However, the size of raw co-occurrence matrices grows exponentially with the vocabulary. For this and other performance reasons, dimensionality reduction techniques such as Latent Semantic Indexing are often used in context-counting models together with *Weighting* techniques (Manning, 1999).
 
 On the other hand, context-predicting models approach the word embedding problem as a supervised learning task, which tries to predict the vector embedding of a target word directly from the context. That is, given the embedding of other words in the context it 
 learns the embedding of the target word (or vise versa) (Bengio, 2003 and Mikolov, 2013). Baroni et al. conducted an extensive comparison between count and predictive models in (Marcobaroni, 2014)
@@ -42,23 +42,24 @@ aimed to reduce the imbalance between most common and rare words.
 # 3. Methods
 To evaluate the performance of the new and pre-trained word embeddings, three evaluation methods are applied using data provided in the course folder.
 
-\noindent \textbf{\emph{The nearest neighbors evaluation task.}} This method is useful in testing the syntactic and semantic similarity of word vectors and their nearest neighbors using (cosine) distance
+*The nearest neighbors evaluation task.* This method is useful in testing the syntactic and semantic similarity of word vectors and their nearest neighbors using (cosine) distance
 as a measure. However, the evaluation is limited to a subjective qualitative study. Although all the models are tested using all the words in this set, only a subset of the results are discussed in this report.
 
-\noindent \textbf{\emph{The analogical reasoning evaluation task.}} This task set, originally from \cite{mikolov2013efficient}, tests the ability of a model to identify analogies such as 
-\emph{If Paris is to France, Helsinki is to \underline{\textcolor{white}{aljdlfj}}}. Out of the available fourteen categories of analogical tests, the following five sets are
+*The analogical reasoning evaluation task.* This task set, originally from (Mikolov, 2013), tests the ability of a model to identify analogies such as 
+*If Paris is to France, Helsinki is to _____. Out of the available fourteen categories of analogical tests, the following five sets are
 used in this project:
-\begin{itemize}
-	\item \emph{Capital-world.} Similar to the example given above, this set tests whether the model can correctly make an analogy between countries in the world and their capitals. 
-	\item \emph{City-in-state.} This set contains analogies between
-	states and their cities in the United States. 
-	\item \emph{Currency.} This set evaluates a model on financial analogies like \emph{United States is to Dollar, Finland is to \underline{\textcolor{white}{aljdlfj}}}
-	\item \emph{Family.}  This set evaluates a model on family analogies like \emph{boy is to girl, brother is to \underline{\textcolor{white}{aljdlfj}}}
-	\item \emph{Opposite.} This set evaluates whether a model is able to correctly identify the opposite of a given word by analogy. The test phrases are similar to: \emph{clear is to unclear, efficient is to \underline{\textcolor{white}{aljdlfj}}}.
-		
-\end{itemize}
 
-\noindent\textbf{\emph{The concrete noun categorization task.}} This evaluation set contains a list of $44$ concrete nouns and their categories in three levels. In the first level, each noun is categorized into two groups: \emph{"natural"} or \emph{"artifact."} The second level further categorizes the words into three groups: \emph{"animal","vegetable", \emph{and} "artifact"}. The last level is the most detailed of all, and categorizes the nouns into six groups: \emph{"bird","groundAnimal", "fruitTree", "green", "tool" \emph{and} "vehicle."}
+----
+	-- *Capital-world.* Similar to the example given above, this set tests whether the model can correctly make an analogy between countries in the world and their capitals. 
+	-- *City-in-state.* This set contains analogies between
+	states and their cities in the United States. 
+    -- *Currency.* This set evaluates a model on financial analogies like *United States is to Dollar, Finland is to \underline{\textcolor{white}{aljdlfj}}}
+	-- *Family.*  This set evaluates a model on family analogies like *boy is to girl, brother is to \underline{\textcolor{white}{aljdlfj}}}
+	-- *Opposite.* This set evaluates whether a model is able to correctly identify the opposite of a given word by analogy. The test phrases are similar to: *clear is to unclear, efficient is to \underline{\textcolor{white}{aljdlfj}}}.
+		
+
+
+\noindent\textbf{*The concrete noun categorization task.}} This evaluation set contains a list of $44$ concrete nouns and their categories in three levels. In the first level, each noun is categorized into two groups: *"natural"} or *"artifact."} The second level further categorizes the words into three groups: *"animal","vegetable", *and} "artifact"}. The last level is the most detailed of all, and categorizes the nouns into six groups: *"bird","groundAnimal", "fruitTree", "green", "tool" *and} "vehicle."}
 For this task, the word vectors of all $44$ words are used in a K-means clustering algorithm\footnote{http://scikit-learn.org/stable/modules/clustering.html\#k-means} by setting the number of clusters to $2$, $3$, and $6$ corresponding to the three levels discussed above. The classification error is calculated by
 \[
 \text{error} = \frac{C(\text{misclassified words})}{C(\text{words})},
@@ -100,7 +101,7 @@ In this section, the performance of a pre-trained word embedding is discussed. T
 	\label{fig:wordCloud}
 \end{figure}	
 	
-\noindent\textbf{\emph{Nearest neighbors.}}  Table 1 shows the top five nearest words for the first ten words in the nearest neighbor evaluation set. The model was able to capture both syntactic (cat -- cats) and semantic (dog -- puppy) similarities between words. A word cloud visualization of the top 15 nearest words to the word "language" is depicted in Figure 1. Expected results such as "English" and "Arabic" are returned by the model. But the more interesting and unexpected word is "langauge". As the model was trained on a news data set, this result discloses the fact that "language" is often misspelled as "langauge". 
+\noindent\textbf{*Nearest neighbors.}}  Table 1 shows the top five nearest words for the first ten words in the nearest neighbor evaluation set. The model was able to capture both syntactic (cat -- cats) and semantic (dog -- puppy) similarities between words. A word cloud visualization of the top 15 nearest words to the word "language" is depicted in Figure 1. Expected results such as "English" and "Arabic" are returned by the model. But the more interesting and unexpected word is "langauge". As the model was trained on a news data set, this result discloses the fact that "language" is often misspelled as "langauge". 
 
 	\begin{figure}
 		\includegraphics[trim=1.0cm 23cm 2cm 2cm, clip=true,width=0.9\textwidth]{./Figures/google-ana.pdf}
@@ -115,14 +116,14 @@ In this section, the performance of a pre-trained word embedding is discussed. T
 		\label{fig:class}
 	\end{figure}
 
-\noindent\textbf{\emph{Analogical reasoning task.}} This evaluation is based on the five analogical reasoning evaluation sets, namely: the \emph{Capital-world, City-in-state, Currency, Family, and Opposite} sets. Word2Vec comes with a built-in 
+\noindent\textbf{*Analogical reasoning task.}} This evaluation is based on the five analogical reasoning evaluation sets, namely: the *Capital-world, City-in-state, Currency, Family, and Opposite} sets. Word2Vec comes with a built-in 
 
-\noindent\emph{"accuracy"} function that runs such analogical evaluations and returns a JSON-like data structure of correct and incorrect analogies returned by the model.
+\noindent*"accuracy"} function that runs such analogical evaluations and returns a JSON-like data structure of correct and incorrect analogies returned by the model.
 From this, a single accuracy percentage can be reported using 
 \[
 \text{accuracy} = 100 \times \frac{\text{correct analogies}}{\text{Total analogies}},
 \]
-\noindent see \cite{accuracy} for more on this. These numbers are given in Table 2 for the five analogy task sets. The model performed poorly on the \emph{Currency} set, which maybe due to
+\noindent see \cite{accuracy} for more on this. These numbers are given in Table 2 for the five analogy task sets. The model performed poorly on the *Currency} set, which maybe due to
 the lack of financial topics in the training data.
 
 \begin{figure*}
@@ -148,26 +149,26 @@ the lack of financial topics in the training data.
 	\label{fig:traintime}
 \end{figure*}
 
-\noindent\textbf{\emph{Concrete noun classification task.}} Here the task is to classify the set of given concrete nouns into two, three, and six clusters. Classification accuracy at each level is given in Table 3. Recall that the two clusters are representing "natural" and "artifact". Thus, the model was able to correctly classify  $97.7 \%$ of the concrete into "natural" and "artifact", whereas the classification into "animal", "vegetable", and "artifact" is correctly done for $95.5 \%$ of the words. 
+\noindent\textbf{*Concrete noun classification task.}} Here the task is to classify the set of given concrete nouns into two, three, and six clusters. Classification accuracy at each level is given in Table 3. Recall that the two clusters are representing "natural" and "artifact". Thus, the model was able to correctly classify  $97.7 \%$ of the concrete into "natural" and "artifact", whereas the classification into "animal", "vegetable", and "artifact" is correctly done for $95.5 \%$ of the words. 
 
 \subsection*{5.2 Models trained on the Wikipedia English corpus}
-As described in Section 4, two values are selected for each of the \emph{window size, down sampling, \emph{and} feature vectors (size)} parameters under both CBOW and Skip-gram. This results in 
+As described in Section 4, two values are selected for each of the *window size, down sampling, *and} feature vectors (size)} parameters under both CBOW and Skip-gram. This results in 
 $16$ different parameter combinations. Below, we discuss the performance of each of these.
 
-\noindent\textbf{\emph{Training time.}} Figure 2 illustrates the training times pivoted around 
+\noindent\textbf{*Training time.}} Figure 2 illustrates the training times pivoted around 
 the architecture (CBOW or Skip-gram). The Skip-gram models (irrespective of the other parameter 
 values) roughly took four times longer training time. When it comes to the parameters, window 
 size (Figure 2b) and feature vectors (Figure 2c) appear to have larger impact on training time 
 than down sampling(Figure 2a).
 
-\noindent\textbf{\emph{Nearest neighbors.}} The large number of models makes it difficult to 
+\noindent\textbf{*Nearest neighbors.}} The large number of models makes it difficult to 
 give a compact analysis of the nearest words data set. However, a random visual check was 
 performed to verify the sanity of the trained models. CSV files containing the nearest words of all the words for all the models are available and can be shared upon request.
 %Moreover, the top 5 nearest words of the first 40 words is given in Appendix A for the Skip-gram model with window size = 10, down sampling = 0.001 and feature vectors = 400.
 
-\noindent\textbf{\emph{Analogical reasoning.}} The performance of all 16 models on the google analogical reasoning task is shown in Table 4. Looking at the \emph{currency} column, one can quickly see that all the models consistently gave very poor performance (an order of magnitude
+\noindent\textbf{*Analogical reasoning.}} The performance of all 16 models on the google analogical reasoning task is shown in Table 4. Looking at the *currency} column, one can quickly see that all the models consistently gave very poor performance (an order of magnitude
 poorer than the google embedding discussed in the previous section). Despite the significant 
-amount of training time difference between the CBOW and Skip-gram models, they achieved equivalent performance in the analogical reasoning task, except for the \emph{capital-world} and \emph{city-in-state} sets, where the Skip-gram modes have a marginal edge over the CBOW.
+amount of training time difference between the CBOW and Skip-gram models, they achieved equivalent performance in the analogical reasoning task, except for the *capital-world} and *city-in-state} sets, where the Skip-gram modes have a marginal edge over the CBOW.
 
 \begin{figure}
 	\centering
@@ -184,7 +185,7 @@ amount of training time difference between the CBOW and Skip-gram models, they a
 	\label{fig:cata}
 	
 \end{figure}
-\noindent\textbf{\emph{Concrete noun categorization.}} Table 5 shows the performance of all the 
+\noindent\textbf{*Concrete noun categorization.}} Table 5 shows the performance of all the 
 embeddings on three of the concrete noun categorization tasks. Once again, the CBOW and Skip-gram 
 models gave comparable result. All the models gave impressive performance in classifying the nouns into two clusters, that is, "natural" and "artifact". The best of these models performed better than the google embedding on the two cluster task ($100\%$ accuracy), although the google embedding gave better performance on the six cluster task.
 
