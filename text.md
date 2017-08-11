@@ -9,37 +9,37 @@ Context-counting models construct a word co-occurrence matrix from a context win
 in a given corpus. The underlying assumption is that similar words will appear in the same context, and hence their vector representations will be closer to each other. However, the size of raw co-occurrence matrices grows exponentially with the vocabulary. For this and other performance reasons, dimensionality reduction techniques such as \emph{Latent Semantic Indexing} are often used in context-counting models together with \emph{Weighting} techniques \cite{Manning:1999:FSN:311445,ARIS:ARIS1440380105}.
 
 On the other hand, context-predicting models approach the word embedding problem as a supervised learning task, which tries to predict the vector embedding of a target word directly from the context. That is, given the embedding of other words in the context it 
-learns the embedding of the target word (or vise versa) (Bengio, 2003 and Mikolov, 2013). Baroni et al. conducted an extensive comparison between count and predictive models in \cite{marcobaroni2014predict} 
+learns the embedding of the target word (or vise versa) (Bengio, 2003 and Mikolov, 2013). Baroni et al. conducted an extensive comparison between count and predictive models in (Marcobaroni, 2014)
 and reported that the predictive models performed significantly better than the count models in a number of evaluation tasks.
 
-Bengio et al. proposed one of the first predictive models, which is a \emph{feedforward Neural Network Language Model (NNLM)} \cite{Bengio:2003:NPL:944919.944966}. The end result 
+Bengio et al. proposed one of the first predictive models, which is a *feedforward Neural Network Language Model (NNLM)* (Bengio, 2003). The end result 
 of an NNLM is to learn a probability distribution for words given other words in a context.
-Architecturally, it has four layers. The first layer is an input layer where N previous words of a context are encoded using one-hot encoding. Layer 2: Is a projection layer where each word in the vocabulary is represented in a high dimensional space. This is a dense representation of the input, where each of the $N$ context words are represented by a $D$-dimensional vector. That is, this layer produces an $N\times D$ matrix.
-Layer 3 is a hidden layer in a normal neural network. If the hidden layer has $H$ nodes, there will be $H\times N$ matrix of weights. Layer 4 is the output layer of the neural network. At this layer, probability is assigned to each word in the vocabulary.
+Architecturally, it has four layers. The first layer is an input layer where **N** previous words of a context are encoded using one-hot encoding. Layer 2: Is a projection layer where each word in the vocabulary is represented in a high dimensional space. This is a dense representation of the input, where each of the **N** context words are represented by a **D**-dimensional vector. That is, this layer produces an **N × D** matrix.
+Layer 3 is a hidden layer in a normal neural network. If the hidden layer has $H$ nodes, there will be **H × N** matrix of weights. Layer 4 is the output layer of the neural network. At this layer, probability is assigned to each word in the vocabulary.
 
-More recently, Mikolov et al. proposed a simple but yet efficient neural network model (Mikolov, 2013), which is implemented as the \emph{Word2Vec toolkit\footnote{https://code.google.com/archive/p/word2vec/}}. In contrast to \emph{NNLM  Word2Vec} does not use the hidden layer. For a clear and illustrative 
+More recently, Mikolov et al. proposed a simple but yet efficient neural network model (Mikolov, 2013), which is implemented as the [**Word2Vec toolkit**](https://code.google.com/archive/p/word2vec/). In contrast to NNLM,   Word2Vec does not use the hidden layer. For a clear and illustrative 
 explanation of the Word2Vec toolkit see (Rong, 2014). In the following section, we will discuss the two main architectures and parameter settings in Word2Vec.
 
 In this work, we explore the different parameter settings in Word2Vec and their effect in 
-model training time and accuracy using a preprocessed Wikipedia (English) text corpus. Additionally, a model pre-trained on the Google news data set is also used\footnote{https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit}.
+model training time and accuracy using a preprocessed Wikipedia (English) text corpus. Additionally, a [model](https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit)pre-trained on the Google news data set is also used.
 
 # 2. Word2Vec architectures and parameters
-There are two distinct architecture choices in Word2Vec: \emph{Continuous Bag of Words (CBOW)} and \emph{Skip-gram}. In a CBOW model, the objective is to predict the current word
+There are two distinct architecture choices in Word2Vec: *Continuous Bag of Words (CBOW)* and *Skip-gram*. In a CBOW model, the objective is to predict the current word
 given the context from words in the history. On the other hand, Skip-gram predicts the words within a context window given the current word. 
 
 In addition to architecture, some parameter choices also impact the training time and/or accuracy of a Word2Vec model. The main parameters are discussed below.
 
-\noindent \textbf{\emph{Training algorithm.}} The training algorithm can be \emph{hierarchical softmax}
-or \emph{negative sampling}. Hierarchical softmax attempts to maximize the log-likelihood of a target word, whereas negative sampling minimizes the log-likelihood of negative samples.
+**Training algorithm.** The training algorithm can be *hierarchical softmax*
+or *negative sampling*. Hierarchical softmax attempts to maximize the log-likelihood of a target word, whereas negative sampling minimizes the log-likelihood of negative samples.
 
-\noindent \textbf{\emph{Window size.}} This is the context window size. That is, the maximum number of words to take into context when predicting the current word (CBOW) or the maximum number of predictions to make per word (Skip-gram).
+**Window size.** This is the context window size. That is, the maximum number of words to take into context when predicting the current word (CBOW) or the maximum number of predictions to make per word (Skip-gram).
 
-\noindent \textbf{\emph{Down sampling.}} A probability for randomly discarding frequent words
+**Down sampling.** A probability for randomly discarding frequent words
 aimed to reduce the imbalance between most common and rare words.
 
-\noindent \textbf{\emph{Size.}} This is the number of feature vectors used to represent words, that is the dimensionality of vector space.
+**Size.** This is the number of feature vectors used to represent words, that is the dimensionality of vector space.
 
-\section*{3. Methods}
+# 3. Methods
 To evaluate the performance of the new and pre-trained word embeddings, three evaluation methods are applied using data provided in the course folder.
 
 \noindent \textbf{\emph{The nearest neighbors evaluation task.}} This method is useful in testing the syntactic and semantic similarity of word vectors and their nearest neighbors using (cosine) distance
@@ -67,7 +67,7 @@ For this task, the word vectors of all $44$ words are used in a K-means clusteri
 parameter values in the performance of Word2Vec models. Thus, the assumption is that the effect of K-means on the performance of a model is uniform across different parameter settings.
 
 
-\section*{4. Experiments}
+# 4. Experiments
 The main goal of this project is to evaluate the performance of Word2Vec models. To this end, two approaches are used. First, the performance of a pre-trained word embedding is evaluated. Second, we train a Word2Vec model by 
 selecting a number of parameter values. For this part, we selected the following parameters and chose two values 
 per each parameter:
@@ -81,7 +81,7 @@ per each parameter:
 
 \noindent So, a total of $16$ models are trained and their performance, both in terms of training time and accuracy, is studied. The experiment is conducted on a computer with a 4 core Intel Xeon (R) E5345 CPU and 6 GB of RAM running on Ubuntu 16.04.
 
-\section*{5. Results}
+# 5. Results
 
 \subsection*{5.1 Pre-trained model}
 In this section, the performance of a pre-trained word embedding is discussed. The model was trained on part of Google News dataset, and contains 300-dimensional vectors for 3 million words and phrases. 
